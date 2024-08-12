@@ -3,7 +3,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import java.io.ByteArrayOutputStream
 
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -20,21 +19,9 @@ android {
         targetSdk = 34
         versionCode = getVersionCode()
         versionName = "1.0.0" + ".r${getGitCommitCount()}." + getVersionName()
-
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-        externalNativeBuild {
-            cmake {
-                cppFlags += ""
-            }
-        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures {
-        aidl = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -49,41 +36,10 @@ android {
         outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
             .forEach {
                 val abiName = when (val abi = it.outputFileName.split("-")[1].split(".apk")[0]) {
-                    "app" -> "all"
-                    "x64" -> "x86_64"
                     else -> abi
                 }
                 it.outputFileName = "QwQ-v${versionName}-${abiName}.apk"
             }
-    }
-
-    flavorDimensions.add("mode")
-
-    productFlavors {
-        create("app") {
-            dimension = "mode"
-            ndk {
-                println("Full architecture and full compilation.")
-                abiFilters.add("arm64-v8a")
-                abiFilters.add("armeabi-v7a")
-                abiFilters.add("x86_64")
-                abiFilters.add("x86")
-            }
-        }
-        create("arm64") {
-            dimension = "mode"
-            ndk {
-                println("Full compilation of arm64 architecture")
-                abiFilters.add("arm64-v8a")
-            }
-        }
-        create("x64") {
-            dimension = "mode"
-            ndk {
-                println("Full compilation of x64 architecture")
-                abiFilters.add("x86_64")
-            }
-        }
     }
 
     compileOptions {
@@ -94,9 +50,6 @@ android {
         jvmTarget = "17"
     }
     packaging {
-        jniLibs {
-            useLegacyPackaging = true
-        }
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "/META-INF/*"
@@ -116,12 +69,6 @@ android {
             excludes += "/META-INF/license.txt"
             excludes += "/META-INF/*.kotlin_module"
             excludes += "/META-INF/services/reactor.blockhound.integration.BlockHoundIntegration"
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
         }
     }
 
