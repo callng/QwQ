@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization") version "1.9.21"
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -126,11 +126,6 @@ android {
     }
 
     configureAppSigningConfigsForRelease(project)
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging = true
-        }
-    }
 }
 
 fun configureAppSigningConfigsForRelease(project: Project) {
@@ -192,13 +187,13 @@ dependencies {
     implementation(project(":processor"))    // pre build
     implementation(project(":maple"))        // maple
 
-    val serializationVersion = "1.6.3"
+    val serializationVersion = "1.7.1"
 
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serializationVersion")
-    implementation("com.google.protobuf:protobuf-java:4.26.1")
+    implementation("com.google.protobuf:protobuf-java:4.27.2")
 
     implementation(ktor("client", "core"))
     implementation(ktor("client", "content-negotiation"))
