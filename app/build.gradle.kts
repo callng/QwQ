@@ -128,7 +128,6 @@ fun getVersionName(): String {
 }
 
 dependencies {
-    implementation("androidx.exifinterface:exifinterface:1.3.7")
     compileOnly("de.robv.android.xposed:api:82")
     compileOnly(project(":qqinterface"))  // oicq common interface
     implementation(project(":processor"))    // pre build
@@ -141,14 +140,4 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serializationVersion")
     implementation("com.google.protobuf:protobuf-java:4.27.2")
-
-    implementation(ktor("client", "core"))
-    implementation(ktor("client", "content-negotiation"))
-    implementation(ktor("client", "cio"))
-    implementation(ktor("serialization", "kotlinx-json"))
-    implementation(ktor("network", "tls-certificates"))
-}
-
-fun ktor(target: String, name: String): String {
-    return "io.ktor:ktor-$target-$name:2.3.3"
 }
