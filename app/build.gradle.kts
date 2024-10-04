@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization") version "2.0.0"
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
 android {
@@ -133,7 +133,7 @@ dependencies {
     implementation(project(":processor"))    // pre build
     implementation(project(":maple"))        // maple
 
-    val serializationVersion = "1.7.1"
+    val serializationVersion = "1.7.3"
 
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
